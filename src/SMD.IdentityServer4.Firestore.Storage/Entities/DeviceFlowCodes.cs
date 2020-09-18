@@ -1,82 +1,36 @@
-﻿using System;
+﻿using Google.Cloud.Firestore;
+using System;
 
-namespace IdentityServer4.EntityFramework.Entities
+namespace IdentityServer4.Firestore.Entities
 {
-    /// <summary>
-    /// Entity for device flow codes
-    /// </summary>
+    [FirestoreData]
     public class DeviceFlowCodes
     {
-        /// <summary>
-        /// Gets or sets the device code.
-        /// </summary>
-        /// <value>
-        /// The device code.
-        /// </value>
+        [FirestoreProperty]
         public string DeviceCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets the user code.
-        /// </summary>
-        /// <value>
-        /// The user code.
-        /// </value>
+        [FirestoreProperty]
         public string UserCode { get; set; }
 
-        /// <summary>
-        /// Gets or sets the subject identifier.
-        /// </summary>
-        /// <value>
-        /// The subject identifier.
-        /// </value>
+        [FirestoreProperty]
         public string SubjectId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the session identifier.
-        /// </summary>
-        /// <value>
-        /// The session identifier.
-        /// </value>
+        [FirestoreProperty]
         public string SessionId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the client identifier.
-        /// </summary>
-        /// <value>
-        /// The client identifier.
-        /// </value>
+        [FirestoreProperty]
         public string ClientId { get; set; }
 
-        /// <summary>
-        /// Gets the description the user assigned to the device being authorized.
-        /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
+        [FirestoreProperty]
         public string Description { get; set; }
 
-        /// <summary>
-        /// Gets or sets the creation time.
-        /// </summary>
-        /// <value>
-        /// The creation time.
-        /// </value>
+        [FirestoreProperty]
         public DateTime CreationTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets the expiration.
-        /// </summary>
-        /// <value>
-        /// The expiration.
-        /// </value>
+        [FirestoreProperty]
         public DateTime? Expiration { get; set; }
 
-        /// <summary>
-        /// Gets or sets the data.
-        /// </summary>
-        /// <value>
-        /// The data.
-        /// </value>
+        [FirestoreProperty]
         public string Data { get; set; }
     }
 }
