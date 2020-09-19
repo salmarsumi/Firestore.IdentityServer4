@@ -1,7 +1,7 @@
 ﻿using Google.Cloud.Firestore;
 using IdentityServer4.Firestore.Interfaces;
 
-namespace SMD.IdentityServer4.Firestore.Storage.DbContexts
+namespace IdentityServer4.Firestore.Storage.DbContexts
 {
     public class PersistedGrantContext : ContextBase, IPersistedGrantContext
     {

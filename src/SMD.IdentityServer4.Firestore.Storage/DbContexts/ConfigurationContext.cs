@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SMD.IdentityServer4.Firestore.Storage.DbContexts
+namespace IdentityServer4.Firestore.Storage.DbContexts
 {
     public class ConfigurationContext : ContextBase, IConfigurationContext
     {

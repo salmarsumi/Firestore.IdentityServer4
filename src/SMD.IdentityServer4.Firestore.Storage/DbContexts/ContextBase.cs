@@ -1,7 +1,7 @@
 ﻿using Google.Cloud.Firestore;
 using System;
 
-namespace SMD.IdentityServer4.Firestore.Storage.DbContexts
+namespace IdentityServer4.Firestore.Storage.DbContexts
 {
     public abstract class ContextBase
     {
