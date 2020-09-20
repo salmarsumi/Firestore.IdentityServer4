@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EFC5428D-2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMD.IdentityServer4.Firestore.Storage", "src\SMD.IdentityServer4.Firestore.Storage\SMD.IdentityServer4.Firestore.Storage.csproj", "{189B2E8F-FDB7-40F5-846F-55872C6C877D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMD.IndentityServer4.Firestore", "src\SMD.IndentityServer4.Firestore\SMD.IndentityServer4.Firestore.csproj", "{44E70542-1F7D-428F-AAD0-92D6BFE2A807}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMD.IndentityServer4.Firestore", "src\SMD.IndentityServer4.Firestore\SMD.IndentityServer4.Firestore.csproj", "{44E70542-1F7D-428F-AAD0-92D6BFE2A807}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Firestore.UnitTests", "test\IdentityServer4.Firestire.UnitTests\IdentityServer4.Firestore.UnitTests.csproj", "{134A812C-52F2-4422-8438-6DF3CC3D13B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,18 @@ Global
 		{44E70542-1F7D-428F-AAD0-92D6BFE2A807}.Release|x64.Build.0 = Release|Any CPU
 		{44E70542-1F7D-428F-AAD0-92D6BFE2A807}.Release|x86.ActiveCfg = Release|Any CPU
 		{44E70542-1F7D-428F-AAD0-92D6BFE2A807}.Release|x86.Build.0 = Release|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Debug|x64.Build.0 = Debug|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Debug|x86.Build.0 = Debug|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Release|x64.Build.0 = Release|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Release|x86.ActiveCfg = Release|Any CPU
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{189B2E8F-FDB7-40F5-846F-55872C6C877D} = {D584701D-734F-49B9-9BB7-D14C23BC2488}
 		{44E70542-1F7D-428F-AAD0-92D6BFE2A807} = {D584701D-734F-49B9-9BB7-D14C23BC2488}
+		{134A812C-52F2-4422-8438-6DF3CC3D13B9} = {EFC5428D-2A68-43E9-8348-82F354EC1CCE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A97D66DF-4898-457E-817D-E08749249E2C}

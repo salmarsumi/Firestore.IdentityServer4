@@ -45,7 +45,7 @@ namespace IdentityServer4.Firestore.Entities
         public bool AlwaysIncludeUserClaimsInIdToken { get; set; }
 
         [FirestoreProperty]
-        public List<string> AllowedGrantTypes { get; set; }
+        public List<string> AllowedGrantTypes { get; set; } = new List<string>();
 
         [FirestoreProperty]
         public bool RequirePkce { get; set; } = true;
