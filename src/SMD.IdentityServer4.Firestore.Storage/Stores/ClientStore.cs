@@ -46,16 +46,14 @@ namespace IdentityServer4.Firestore.Stores
         /// </returns>
         public virtual async Task<Client> FindClientByIdAsync(string clientId)
         {
-            var snapshots = await Context.Clients
-                .WhereEqualTo("ClientId", clientId)
-                .Limit(1)
+            var snapshot = await Context.Clients.Document(clientId)
                 .GetSnapshotAsync()
                 .ConfigureAwait(false);
 
-            if (snapshots.Count == 0)
+            if (!snapshot.Exists)
                 return null;
 
-            return snapshots.First().ConvertTo<Entities.Client>().ToModel();
+            return snapshot.ConvertTo<Entities.Client>().ToModel();
         }
     }
 }

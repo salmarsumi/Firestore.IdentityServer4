@@ -32,7 +32,7 @@ namespace IdentityServer4.Firestore.Storage.Mappers
                 Description = model.Description,
                 Expiration = model.Expiration,
                 Key = model.Key,
-                SessionId = model.Key,
+                SessionId = model.SessionId,
                 SubjectId = model.SubjectId,
                 Type = model.Type
             };
@@ -47,7 +47,7 @@ namespace IdentityServer4.Firestore.Storage.Mappers
             entity.Description = model.Description;
             entity.Expiration = model.Expiration;
             entity.Key = model.Key;
-            entity.SessionId = model.Key;
+            entity.SessionId = model.SessionId;
             entity.SubjectId = model.SubjectId;
             entity.Type = model.Type;
         }

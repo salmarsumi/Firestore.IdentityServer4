@@ -25,7 +25,7 @@ namespace IdentityServer4.Firestore.Entities
         public string Description { get; set; }
 
         [FirestoreProperty]
-        public DateTime CreationTime { get; set; }
+        public DateTime CreationTime { get; set; } = DateTime.UtcNow;
 
         [FirestoreProperty]
         public DateTime? Expiration { get; set; }

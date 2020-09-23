@@ -1,25 +1,25 @@
 ﻿using Google.Cloud.Firestore;
 using IdentityServer4.Firestore.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IdentityServer4.Firestore.Storage.DbContexts
 {
     public class ConfigurationContext : ContextBase, IConfigurationContext
     {
+        private const string CLIENTS = "IS4-Clients";
+        private const string IDENTITY_RESOURCES = "IS4-IdentityResources";
+        private const string API_RESOURCES = "IS4-ApiResources";
+        private const string API_SCOPES = "IS4-ApiScopes";
+
         public ConfigurationContext(FirestoreDb db) : base(db)
         {
         }
 
-        public CollectionReference Clients => _db.Collection("IS-Clients");
+        public CollectionReference Clients => _db.Collection(CLIENTS);
 
-        public CollectionReference ClientCorsOrigins => _db.Collection("IS-ClientCorsOrigins");
+        public CollectionReference IdentityResources => _db.Collection(IDENTITY_RESOURCES);
 
-        public CollectionReference IdentityResources => _db.Collection("IS-IdentityResources");
+        public CollectionReference ApiResources => _db.Collection(API_RESOURCES);
 
-        public CollectionReference ApiResources => _db.Collection("IS-ApiResources");
-
-        public CollectionReference ApiScopes => _db.Collection("IS-ApiScopes");
+        public CollectionReference ApiScopes => _db.Collection(API_SCOPES);
     }
 }

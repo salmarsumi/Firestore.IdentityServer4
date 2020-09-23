@@ -58,6 +58,7 @@ namespace IdentityServer4.EntityFramework.Stores
         /// <returns></returns>
         public virtual async Task StoreDeviceAuthorizationAsync(string deviceCode, string userCode, DeviceCode data)
         {
+            // does not force unique device code and user code at this point
             await Context.DeviceFlowCodes
                 .AddAsync(ToEntity(data, deviceCode, userCode))
                 .ConfigureAwait(false);

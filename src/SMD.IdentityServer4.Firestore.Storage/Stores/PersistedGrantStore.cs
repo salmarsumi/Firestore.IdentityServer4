@@ -42,26 +42,22 @@ namespace IdentityServer4.Firestore.Stores
         /// <inheritdoc/>
         public virtual async Task StoreAsync(PersistedGrant token)
         {
-            var snapshots = await Context.PersistedGrants
-                .WhereEqualTo("Key", token.Key)
-                .Limit(1)
+            var snapshot = await Context.PersistedGrants.Document(token.Key)
                 .GetSnapshotAsync()
                 .ConfigureAwait(false);
 
-            DocumentReference docRef;
+            DocumentReference docRef = snapshot.Reference;
             Entities.PersistedGrant entity;
 
-            if(snapshots.Count == 0)
+            if (!snapshot.Exists)
             {
                 Logger.LogDebug("{persistedGrantKey} not found in database", token.Key);
-                docRef = Context.PersistedGrants.Document();
                 entity = token.ToEntity();
             }
             else
             {
                 Logger.LogDebug("{persistedGrantKey} found in database", token.Key);
-                docRef = snapshots[0].Reference;
-                entity = snapshots[0].ConvertTo<Entities.PersistedGrant>();
+                entity = snapshot.ConvertTo<Entities.PersistedGrant>();
                 token.UpdateEntity(entity);
             }
 
@@ -71,17 +67,15 @@ namespace IdentityServer4.Firestore.Stores
         /// <inheritdoc/>
         public virtual async Task<PersistedGrant> GetAsync(string key)
         {
-            var snapshots = await Context.PersistedGrants
-                .WhereEqualTo("Key", key)
-                .Limit(1)
+            var snapshot = await Context.PersistedGrants.Document(key)
                 .GetSnapshotAsync()
                 .ConfigureAwait(false);
 
-            Logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, snapshots.Count != 0);
+            Logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, snapshot.Exists);
 
-            if (snapshots.Count == 0) return default;
+            if (!snapshot.Exists) return default;
 
-            var persistedGrant = snapshots[0].ConvertTo<Entities.PersistedGrant>();
+            var persistedGrant = snapshot.ConvertTo<Entities.PersistedGrant>();
             return persistedGrant.ToModel();
         }
 
@@ -105,16 +99,13 @@ namespace IdentityServer4.Firestore.Stores
         /// <inheritdoc/>
         public virtual async Task RemoveAsync(string key)
         {
-            var snapshots = await Context.PersistedGrants
-                .WhereEqualTo("Key", key)
-                .Limit(1)
-                .GetSnapshotAsync()
-                .ConfigureAwait(false);
+            var docRef = Context.PersistedGrants.Document(key);
+            var snapshot = await docRef.GetSnapshotAsync().ConfigureAwait(false);
 
-            if(snapshots.Count != 0)
+            if(snapshot.Exists)
             {
                 Logger.LogDebug("removing {persistedGrantKey} persisted grant from database", key);
-                await snapshots[0].Reference.DeleteAsync().ConfigureAwait(false);
+                await docRef.DeleteAsync().ConfigureAwait(false);
             }
             else
             {
@@ -128,22 +119,29 @@ namespace IdentityServer4.Firestore.Stores
             filter.Validate();
 
             // firestore batch has a 500 document limit
-            // might need to count for that limit at somepoint
+            // delete the documents in batches of 100
             var snapshots = await Filter(filter)
                 .Limit(100)
                 .GetSnapshotAsync()
                 .ConfigureAwait(false);
 
-            if(snapshots.Count != 0)
+            WriteBatch batch;
+
+            while (snapshots.Count != 0)
             {
                 // using a batch will reduce the required server round trips
                 // compared to calling delete for individual documents
-                var batch = Context.StartBatch();
+                batch = Context.StartBatch();
                 foreach(var doc in snapshots)
                 {
                     batch.Delete(doc.Reference);
                 }
                 await batch.CommitAsync().ConfigureAwait(false);
+
+                snapshots = await Filter(filter)
+                    .Limit(100)
+                    .GetSnapshotAsync()
+                    .ConfigureAwait(false);
             }
         }
 
