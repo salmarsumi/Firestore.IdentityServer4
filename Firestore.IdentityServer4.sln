@@ -15,9 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Firestore.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Firestore.Storage.IntegrationTests", "test\IdentityServer4.Firestore.Storage.IntegrationTests\IdentityServer4.Firestore.Storage.IntegrationTests.csproj", "{75A7E925-46DE-406E-BB52-465A80B41528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4.Firestore.UnitTests", "test\IdentityServer4.Firestore.UnitTests\IdentityServer4.Firestore.UnitTests.csproj", "{3CE8BA95-7FDC-4E17-BF96-9E4178684086}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4.Firestore.IntegrationTests", "test\IdentityServer4.Firestore.IntegrationTests\IdentityServer4.Firestore.IntegrationTests.csproj", "{6BB233D1-529D-44D4-8DBF-3B500C9E5A93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Firestore.IntegrationTests", "test\IdentityServer4.Firestore.IntegrationTests\IdentityServer4.Firestore.IntegrationTests.csproj", "{6BB233D1-529D-44D4-8DBF-3B500C9E5A93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,18 +75,6 @@ Global
 		{75A7E925-46DE-406E-BB52-465A80B41528}.Release|x64.Build.0 = Release|Any CPU
 		{75A7E925-46DE-406E-BB52-465A80B41528}.Release|x86.ActiveCfg = Release|Any CPU
 		{75A7E925-46DE-406E-BB52-465A80B41528}.Release|x86.Build.0 = Release|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Debug|x64.Build.0 = Debug|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Debug|x86.Build.0 = Debug|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Release|x64.ActiveCfg = Release|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Release|x64.Build.0 = Release|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Release|x86.ActiveCfg = Release|Any CPU
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086}.Release|x86.Build.0 = Release|Any CPU
 		{6BB233D1-529D-44D4-8DBF-3B500C9E5A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BB233D1-529D-44D4-8DBF-3B500C9E5A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BB233D1-529D-44D4-8DBF-3B500C9E5A93}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -110,7 +96,6 @@ Global
 		{44E70542-1F7D-428F-AAD0-92D6BFE2A807} = {D584701D-734F-49B9-9BB7-D14C23BC2488}
 		{134A812C-52F2-4422-8438-6DF3CC3D13B9} = {EFC5428D-2A68-43E9-8348-82F354EC1CCE}
 		{75A7E925-46DE-406E-BB52-465A80B41528} = {EFC5428D-2A68-43E9-8348-82F354EC1CCE}
-		{3CE8BA95-7FDC-4E17-BF96-9E4178684086} = {EFC5428D-2A68-43E9-8348-82F354EC1CCE}
 		{6BB233D1-529D-44D4-8DBF-3B500C9E5A93} = {EFC5428D-2A68-43E9-8348-82F354EC1CCE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

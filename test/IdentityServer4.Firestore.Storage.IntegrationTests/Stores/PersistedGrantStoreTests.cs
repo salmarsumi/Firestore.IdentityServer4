@@ -84,6 +84,12 @@ namespace IdentityServer4.Firestore.IntegrationTests.Stores
         [Fact]
         public async Task GetAllAsync_Should_Filter()
         {
+            var snapshots = await _context.PersistedGrants.GetSnapshotAsync();
+            foreach (var doc in snapshots)
+            {
+                await doc.Reference.DeleteAsync();
+            }
+
             var model = CreateTestObject(sub: "sub1", clientId: "c1", sid: "s1", type: "t1");
             await _context.PersistedGrants.Document(model.Key).SetAsync(model.ToEntity());
             model = CreateTestObject(sub: "sub1", clientId: "c1", sid: "s1", type: "t2");

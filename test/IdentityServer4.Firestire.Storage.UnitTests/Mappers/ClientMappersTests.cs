@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using IdentityServer4.Firestore.Mappers;
-using System;
 using System.Linq;
 using Xunit;
 using Client = IdentityServer4.Models.Client;

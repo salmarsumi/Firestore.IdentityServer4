@@ -7,31 +7,29 @@ namespace IdentityServer4.Firestore.IntegrationTests
 {
     public class FirestoreTestFixture
     {
-        public FirestoreTestFixture()
-        {
-            DB = CreateDbInstance();
+        private readonly FirestoreDb _db;
 
-            Clean(DB.Collection("IS4-PersistedGrants"));
-            Clean(DB.Collection("IS4-DeviceFlowCodes"));
-            Clean(DB.Collection("IS4-Clients"));
-            Clean(DB.Collection("IS4-IdentityResources"));
-            Clean(DB.Collection("IS4-ApiResources"));
-            Clean(DB.Collection("IS4-ApiScopes"));
-        }
-
-        public FirestoreDb DB { get; }
-        public IConfiguration Configuration { get; } = new ConfigurationBuilder()
+        private readonly IConfiguration _config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true)
                 .AddUserSecrets<FirestoreTestFixture>()
                 .AddEnvironmentVariables()
                 .Build();
 
+        public FirestoreTestFixture()
+        {
+            _db = CreateDbInstance();
+
+            Clean(_db.Collection("IS4-Clients"));
+        }
+
+        public FirestoreDb DB => _db;
+
         private FirestoreDb CreateDbInstance()
         {
             return new FirestoreDbBuilder
             {
-                ProjectId = Configuration["ProjectId"],
+                ProjectId = _config["ProjectId"],
                 EmulatorDetection = EmulatorDetection.EmulatorOrProduction
             }.Build();
         }
