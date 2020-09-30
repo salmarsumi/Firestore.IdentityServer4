@@ -24,6 +24,11 @@ resources:
 pool:
   vmImage: 'ubuntu-latest'
 
+container: mcr.microsoft.com/dotnet/core/sdk:latest
+
+services:
+  firestore: firestore
+
 variables:
   buildConfiguration: 'Release'
   major: '1'
