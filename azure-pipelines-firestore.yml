@@ -4,14 +4,73 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- dev
+  branches:
+    include:
+    - dev
+  paths:
+    include:
+    - src/SMD.IndentityServer4.Firestore/*
+
+resources:
+  containers:
+  - container: firestore 
+    image: mtlynch/firestore-emulator
+    ports:
+      - 8080:8080
+    env:
+      FIRESTORE_PROJECT_ID: 'project-id'
+      PORT: '8080'
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
+  major: '1'
+  minor: '0'
+  revision: $[counter(variables['minor'], 1)]
+  nuget_version: '$(major).$(minor).$(revision)-dev'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet restore
+
+- task: DotNetCoreCLI@2
+  displayName: 'build projects'
+  inputs:
+    command: 'build'
+    projects: |
+      src/SMD.IndentityServer4.Firestore/SMD.IndentityServer4.Firestore.csproj
+      test/IdentityServer4.Firestore.IntegrationTests/IdentityServer4.Firestore.IntegrationTests.csproj
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'integration tests'
+  inputs:
+    command: 'test'
+    projects: 'test/IdentityServer4.Firestore.IntegrationTests/IdentityServer4.Firestore.IntegrationTests.csproj'
+    testRunTitle: 'integration tests'
+  env:
+    ProjectId: 'project-id'
+    FIRESTORE_EMULATOR_HOST: 'firestore:8080'
+
+- task: DotNetCoreCLI@2
+  displayName: 'publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'src/SMD.IndentityServer4.Firestore/SMD.IndentityServer4.Firestore.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack'
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/SMD.IndentityServer4.Firestore/SMD.IndentityServer4.Firestore.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'nuget_version'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
