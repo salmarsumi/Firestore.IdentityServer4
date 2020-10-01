@@ -48,10 +48,9 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IIdentityServerBuilder AddFirestoreOperationalStore<TContext>(
+        public static IIdentityServerBuilder AddFirestoreOperationalStore(
             this IIdentityServerBuilder builder,
             Action<OperationalStoreOptions> storeOptionsAction = null)
-            where TContext : IPersistedGrantContext
         {
             builder.Services.AddOperationalDbContext(storeOptionsAction);
 
