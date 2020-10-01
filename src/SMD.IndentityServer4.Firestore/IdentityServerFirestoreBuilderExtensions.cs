@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IIdentityServerBuilder AddConfigurationStore(this IIdentityServerBuilder builder)
+        public static IIdentityServerBuilder AddFirestoreConfigurationStore(this IIdentityServerBuilder builder)
         {
             builder.Services.AddConfigurationDbContext();
 
@@ -36,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IIdentityServerBuilder AddConfigurationStoreCache(this IIdentityServerBuilder builder)
+        public static IIdentityServerBuilder AddFirestoreConfigurationStoreCache(this IIdentityServerBuilder builder)
         {
             builder.AddInMemoryCaching();
 
@@ -48,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IIdentityServerBuilder AddOperationalStore<TContext>(
+        public static IIdentityServerBuilder AddFirestoreOperationalStore<TContext>(
             this IIdentityServerBuilder builder,
             Action<OperationalStoreOptions> storeOptionsAction = null)
             where TContext : IPersistedGrantContext
