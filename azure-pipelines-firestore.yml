@@ -37,7 +37,9 @@ variables:
   nuget_version: '$(major).$(minor).$(revision)-dev'
 
 steps:
+- script: dotnet nuget add source "https://almarsumi.pkgs.visualstudio.com/_packaging/SMD/nuget/v3/index.json" --name "smd"
 - script: dotnet restore
+  displayName: 'dotnet restore'
 
 - task: DotNetCoreCLI@2
   displayName: 'build projects'
