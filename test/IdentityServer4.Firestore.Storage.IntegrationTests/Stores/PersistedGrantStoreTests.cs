@@ -355,13 +355,18 @@ namespace IdentityServer4.Firestore.IntegrationTests.Stores
         {
             var persistedGrant = CreateTestObject();
 
-            var foundGrant = (await _context.PersistedGrants.Document(persistedGrant.Key).GetSnapshotAsync()).ConvertTo<Entities.PersistedGrant>();
+            var foundGrant = (await _context.PersistedGrants
+                .WhereEqualTo("Key", persistedGrant.Key)
+                .GetSnapshotAsync()).FirstOrDefault()?.ConvertTo<Entities.PersistedGrant>();
+
             Assert.Null(foundGrant);
 
             var store = new PersistedGrantStore(_context, FakeLogger<PersistedGrantStore>.Create());
             await store.StoreAsync(persistedGrant);
 
-            foundGrant = (await _context.PersistedGrants.Document(persistedGrant.Key).GetSnapshotAsync()).ConvertTo<Entities.PersistedGrant>();
+            foundGrant = (await _context.PersistedGrants
+                .WhereEqualTo("Key", persistedGrant.Key)
+                .GetSnapshotAsync())[0].ConvertTo<Entities.PersistedGrant>();
             Assert.NotNull(foundGrant);
         }
 

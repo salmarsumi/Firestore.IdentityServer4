@@ -42,22 +42,26 @@ namespace IdentityServer4.Firestore.Stores
         /// <inheritdoc/>
         public virtual async Task StoreAsync(PersistedGrant token)
         {
-            var snapshot = await Context.PersistedGrants.Document(token.Key)
+            var snapshot = await Context.PersistedGrants
+                .WhereEqualTo("Key", token.Key)
+                .Limit(1)
                 .GetSnapshotAsync()
                 .ConfigureAwait(false);
 
-            DocumentReference docRef = snapshot.Reference;
+            DocumentReference docRef;
             Entities.PersistedGrant entity;
 
-            if (!snapshot.Exists)
+            if (snapshot.Count == 0)
             {
                 Logger.LogDebug("{persistedGrantKey} not found in database", token.Key);
+                docRef = Context.PersistedGrants.Document();
                 entity = token.ToEntity();
             }
             else
             {
                 Logger.LogDebug("{persistedGrantKey} found in database", token.Key);
-                entity = snapshot.ConvertTo<Entities.PersistedGrant>();
+                docRef = snapshot[0].Reference;
+                entity = snapshot[0].ConvertTo<Entities.PersistedGrant>();
                 token.UpdateEntity(entity);
             }
 
@@ -67,15 +71,17 @@ namespace IdentityServer4.Firestore.Stores
         /// <inheritdoc/>
         public virtual async Task<PersistedGrant> GetAsync(string key)
         {
-            var snapshot = await Context.PersistedGrants.Document(key)
+            var snapshot = await Context.PersistedGrants
+                .WhereEqualTo("Key", key)
+                .Limit(1)
                 .GetSnapshotAsync()
                 .ConfigureAwait(false);
 
-            Logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, snapshot.Exists);
+            Logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, snapshot.Count != 0);
 
-            if (!snapshot.Exists) return default;
+            if (snapshot.Count == 0) return default;
 
-            var persistedGrant = snapshot.ConvertTo<Entities.PersistedGrant>();
+            var persistedGrant = snapshot[0].ConvertTo<Entities.PersistedGrant>();
             return persistedGrant.ToModel();
         }
 
@@ -99,13 +105,16 @@ namespace IdentityServer4.Firestore.Stores
         /// <inheritdoc/>
         public virtual async Task RemoveAsync(string key)
         {
-            var docRef = Context.PersistedGrants.Document(key);
-            var snapshot = await docRef.GetSnapshotAsync().ConfigureAwait(false);
+            var snapshot = await Context.PersistedGrants
+                .WhereEqualTo("Key", key)
+                .Limit(1)
+                .GetSnapshotAsync()
+                .ConfigureAwait(false);
 
-            if(snapshot.Exists)
+            if(snapshot.Count != 0)
             {
                 Logger.LogDebug("removing {persistedGrantKey} persisted grant from database", key);
-                await docRef.DeleteAsync().ConfigureAwait(false);
+                await snapshot[0].Reference.DeleteAsync().ConfigureAwait(false);
             }
             else
             {
@@ -148,23 +157,23 @@ namespace IdentityServer4.Firestore.Stores
 
         private Query Filter(PersistedGrantFilter filter)
         {
-            Query query = default;
+            Query query = Context.PersistedGrants.OrderBy("ClientId");
 
             if (!String.IsNullOrWhiteSpace(filter.ClientId))
             {
-                query = query?.WhereEqualTo("ClientId", filter.ClientId) ?? Context.PersistedGrants.WhereEqualTo("ClientId", filter.ClientId);
+                query = query.WhereEqualTo("ClientId", filter.ClientId);
             }
             if (!String.IsNullOrWhiteSpace(filter.SessionId))
             {
-                query = query?.WhereEqualTo("SessionId", filter.SessionId) ?? Context.PersistedGrants.WhereEqualTo("SessionId", filter.SessionId);
+                query = query.WhereEqualTo("SessionId", filter.SessionId);
             }
             if (!String.IsNullOrWhiteSpace(filter.SubjectId))
             {
-                query = query?.WhereEqualTo("SubjectId", filter.SubjectId) ?? Context.PersistedGrants.WhereEqualTo("SubjectId", filter.SubjectId);
+                query = query.WhereEqualTo("SubjectId", filter.SubjectId);
             }
             if (!String.IsNullOrWhiteSpace(filter.Type))
             {
-                query = query?.WhereEqualTo("Type", filter.Type) ?? Context.PersistedGrants.WhereEqualTo("Type", filter.Type);
+                query = query.WhereEqualTo("Type", filter.Type);
             }
 
             return query;
