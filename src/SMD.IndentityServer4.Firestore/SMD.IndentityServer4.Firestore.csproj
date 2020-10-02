@@ -8,7 +8,7 @@
     <PackageReference Include="IdentityServer4" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.8" />
-    <PackageReference Include="SMD.IdentityServer4.Firestore.Storage" version="1.0.2-dev" />
+    <PackageReference Include="SMD.IdentityServer4.Firestore.Storage" version="1.0.4-dev" />
   </ItemGroup>
 
 </Project>
