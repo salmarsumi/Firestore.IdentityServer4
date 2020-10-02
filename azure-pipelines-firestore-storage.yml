@@ -37,7 +37,13 @@ variables:
   nuget_version: '$(major).$(minor).$(revision)-dev'
 
 steps:
-- script: dotnet restore
+- task: DotNetCoreCLI@2
+  displayName: 'restore'
+  inputs:
+    command: 'restore'
+    projects: 'Firestore.IdentityServer4.sln'
+    feedsToUse: 'select'
+    vstsFeed: 'c6272072-9416-47e9-9087-fc0e0bd1b15e'
 
 - task: DotNetCoreCLI@2
   displayName: 'build projects'
